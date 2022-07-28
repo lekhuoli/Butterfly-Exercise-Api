@@ -1,2 +1,19 @@
 ###
-GET http://localhost:5000
+GET http://localhost:5000/api/comments
+###
+GET http://localhost:5000/api/moods/1
+
+###
+POST http://localhost:5000/api/moods/
+Content-Type: application/json
+
+{
+    "id":"1",
+    "name":"John Doie",
+    "emoji":"happy",
+  
+
+}
+
+
+GET http://localhost:5000/api/moods

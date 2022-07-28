@@ -1,30 +1,26 @@
-const { DataTypes } = require("sequelize/types");
+const Sequelize = require("sequelize");
+const User = require("./User");
+//global sequelize
+const Comment = sequelize.define("comments", {
+  id: {
+    type: Sequelize.INTEGER(11),
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  userId: {
+    type: Sequelize.INTEGER(11),
+    allowNull: false,
+  },
+  moodValue: {
+    type: Sequelize.INTEGER(),
+    allowNull: false,
+  },
+  comment: {
+    type: Sequelize.TEXT(),
+    allowNull: false,
+  },
+});
 
-module.exports = (sequelize, DataTypes) => {
-  const Comment = sequelize.define("Comments", {
-    id: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    moodValue: {
-      type: DataTypes.INTEGER(),
-      allowNull: false,
-    },
-    comment: {
-      type: DataTypes.TEXT(),
-      allowNull: false,
-    },
-  });
-
-  Comment.associate = (models) => {
-    Comment.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false,
-      },
-    });
-  };
-
-  return Comment;
-};
+Comment.belongsTo(User);
+module.exports = Comment;

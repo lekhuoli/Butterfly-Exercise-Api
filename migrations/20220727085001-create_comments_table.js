@@ -16,6 +16,10 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
+      userId: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+      },
 
       moodValue: {
         type: Sequelize.INTEGER(),
