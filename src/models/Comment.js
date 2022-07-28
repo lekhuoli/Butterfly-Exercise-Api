@@ -13,12 +13,12 @@ const Comment = sequelize.define("comments", {
     allowNull: false,
   },
   moodValue: {
-    type: Sequelize.INTEGER(),
+    type: Sequelize.STRING(),
     allowNull: false,
   },
   comment: {
     type: Sequelize.TEXT(),
-    allowNull: false,
+    allowNull: true,
   },
 });
 

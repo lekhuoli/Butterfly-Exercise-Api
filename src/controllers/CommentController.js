@@ -13,6 +13,7 @@ module.exports = {
       return res.status(404).json({ error });
     }
   },
+
   async getOne(req, res) {
     try {
       const { id } = req.params;
@@ -28,18 +29,39 @@ module.exports = {
       return res.status(404).json({ error });
     }
   },
+
   async post(req, res) {
     try {
+      const { name, moodValue, comment } = req.body;
+
+      if (!name) {
+        return res.status(404).json("Name field is required.");
+      }
+      if (!moodValue) {
+        return res.status(404).json("Emoji must have to select.");
+      }
+
+      let user;
+      user = await this.findUser(name);
+
+      if (!user) {
+        user = await this.createUser(name);
+      }
+
+      console.log(user.id);
+
       const newComment = await Comment.create({
-        moodValue: req.body.moodValue,
-        userId: req.body.userId,
-        comment: req.body.comment,
+        moodValue: moodValue,
+        userId: user.id,
+        comment: comment,
       });
+
       return res.status(201).json(newComment);
     } catch (error) {
       return res.status(404).json({ error });
     }
   },
+
   async put(req, res) {
     try {
       const { id } = req.params;
@@ -61,6 +83,7 @@ module.exports = {
       return res.status(400).json({ error });
     }
   },
+
   async delete(req, res) {
     try {
       const { id } = req.params;
@@ -74,6 +97,34 @@ module.exports = {
     } catch (error) {
       console.log(error);
       return res.status(400).json({ error });
+    }
+  },
+
+  async findUser(name) {
+    try {
+      const user = await User.findOne({
+        where: {
+          username: name,
+        },
+      });
+      console.log(user);
+      return user;
+    } catch (error) {
+      console.log(error);
+      return res.json("User not found.");
+    }
+  },
+
+  async createUser(name) {
+    try {
+      const user = await User.create({
+        username: name,
+      });
+      console.log(user);
+      return user;
+    } catch (error) {
+      console.log(error);
+      return res.json("Error creating user");
     }
   },
 };

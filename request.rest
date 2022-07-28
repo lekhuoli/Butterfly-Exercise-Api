@@ -1,10 +1,10 @@
 ###
 GET http://localhost:5000/api/comments
 ###
-GET http://localhost:5000/api/moods/1
+GET http://localhost:5000/api/comments/1
 
 ###
-POST http://localhost:5000/api/moods/
+POST http://localhost:5000/api/comments/
 Content-Type: application/json
 
 {
@@ -16,4 +16,4 @@ Content-Type: application/json
 }
 
 
-GET http://localhost:5000/api/moods
+DELETE  http://localhost:5000/api/comments/1

@@ -22,7 +22,7 @@ module.exports = {
       },
 
       moodValue: {
-        type: Sequelize.INTEGER(),
+        type: Sequelize.STRING(),
         allowNull: false,
       },
       comment: {
