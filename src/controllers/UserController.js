@@ -29,7 +29,7 @@ module.exports = {
       const newUser = await User.create({
         username: req.body.username,
       });
-      return res.status(201).json(newUser);
+      return res.status(201).json({ message: "User created." });
     } catch (error) {
       return res.status(404).json({ error });
     }
@@ -47,7 +47,7 @@ module.exports = {
           },
         }
       );
-      return res.status(200).json(updatedData);
+      return res.status(200).json({ message: "User updated." });
     } catch (error) {
       console.log(error);
       return res.status(400).json({ error });

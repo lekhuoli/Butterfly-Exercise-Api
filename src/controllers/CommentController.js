@@ -35,10 +35,10 @@ module.exports = {
       const { name, moodValue, comment } = req.body;
 
       if (!name) {
-        return res.status(404).json("Name field is required.");
+        return res.status(404).json({ error: "Name field is required." });
       }
       if (!moodValue) {
-        return res.status(404).json("Emoji must have to select.");
+        return res.status(404).json({ error: "Emoji must have to select." });
       }
 
       let user;
@@ -56,7 +56,9 @@ module.exports = {
         comment: comment,
       });
 
-      return res.status(201).json(newComment);
+      return res.status(201).json({
+        message: "Comment added.",
+      });
     } catch (error) {
       return res.status(404).json({ error });
     }
@@ -77,7 +79,9 @@ module.exports = {
           },
         }
       );
-      return res.status(200).json(updatedData);
+      return res.status(200).json({
+        message: "Comment updated.",
+      });
     } catch (error) {
       console.log(error);
       return res.status(400).json({ error });
@@ -93,7 +97,7 @@ module.exports = {
           id,
         },
       });
-      return res.status(200).json("User deleted.");
+      return res.status(200).json({ error: "User deleted." });
     } catch (error) {
       console.log(error);
       return res.status(400).json({ error });
@@ -111,7 +115,7 @@ module.exports = {
       return user;
     } catch (error) {
       console.log(error);
-      return res.json("User not found.");
+      return res.json({ error: "User not found." });
     }
   },
 
