@@ -17,5 +17,7 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   commentController.delete(req, res);
 });
-
+router.post("/search/:query?", (req, res) => {
+  commentController.searchComment(req, res);
+});
 module.exports = router;

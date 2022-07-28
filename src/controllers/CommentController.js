@@ -1,5 +1,6 @@
 const Comment = require("../models/Comment");
 const User = require("../models/User");
+const { Op } = require("sequelize");
 
 module.exports = {
   async getAll(req, res) {
@@ -129,6 +130,40 @@ module.exports = {
     } catch (error) {
       console.log(error);
       return res.json("Error creating user");
+    }
+  },
+  // search by username or comment
+  async searchComment(req, res) {
+    const { query } = req.params;
+    console.log(query);
+    if (!query) {
+      await this.getAll(req, res);
+    }
+    try {
+      const result = await Comment.findAll({
+        where: {
+          [Op.or]: [
+            {
+              "$user.username$": {
+                [Op.like]: "%" + query + "%",
+              },
+            },
+            {
+              comment: {
+                [Op.like]: "%" + query + "%",
+              },
+            },
+          ],
+        },
+        include: [
+          {
+            model: User,
+          },
+        ],
+      });
+      return res.status(200).json(result);
+    } catch (error) {
+      console.log(error);
     }
   },
 };
